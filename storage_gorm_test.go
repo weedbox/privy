@@ -26,8 +26,8 @@ func TestGormStorage_CreateAndGetResource(t *testing.T) {
 
 	resource := &Resource{
 		Key:         "article",
-		Name:        "文章",
-		Description: "新聞文章主體",
+		Name:        "Article",
+		Description: "News article entity",
 	}
 
 	err := storage.CreateResource(resource)
@@ -47,8 +47,8 @@ func TestGormStorage_CreateAndGetResource(t *testing.T) {
 	if retrieved.Key != "article" {
 		t.Errorf("expected key 'article', got '%s'", retrieved.Key)
 	}
-	if retrieved.Name != "文章" {
-		t.Errorf("expected name '文章', got '%s'", retrieved.Name)
+	if retrieved.Name != "Article" {
+		t.Errorf("expected name 'Article', got '%s'", retrieved.Name)
 	}
 }
 
@@ -57,8 +57,8 @@ func TestGormStorage_CreateResourceWithActions(t *testing.T) {
 
 	resource := &Resource{
 		Key:         "article",
-		Name:        "文章",
-		Description: "新聞文章主體",
+		Name:        "Article",
+		Description: "News article entity",
 	}
 
 	err := storage.CreateResource(resource)
@@ -67,9 +67,9 @@ func TestGormStorage_CreateResourceWithActions(t *testing.T) {
 	}
 
 	actions := []Action{
-		{Key: "read", Name: "閱讀", Description: "閱讀文章內容"},
-		{Key: "create", Name: "新增", Description: "建立新文章"},
-		{Key: "update", Name: "更新", Description: "編輯既有文章"},
+		{Key: "read", Name: "Read", Description: "Read article content"},
+		{Key: "create", Name: "Create", Description: "Create new article"},
+		{Key: "update", Name: "Update", Description: "Edit existing article"},
 	}
 
 	err = storage.CreateActions(resource.ID, actions)
@@ -92,8 +92,8 @@ func TestGormStorage_CreateSubResource(t *testing.T) {
 
 	parent := &Resource{
 		Key:         "article",
-		Name:        "文章",
-		Description: "新聞文章主體",
+		Name:        "Article",
+		Description: "News article entity",
 	}
 
 	err := storage.CreateResource(parent)
@@ -103,8 +103,8 @@ func TestGormStorage_CreateSubResource(t *testing.T) {
 
 	child := &Resource{
 		Key:         "comment",
-		Name:        "留言",
-		Description: "文章底下的留言",
+		Name:        "Comment",
+		Description: "Article comments",
 		ParentID:    &parent.ID,
 	}
 
@@ -155,8 +155,8 @@ func TestGormStorage_GetAction(t *testing.T) {
 
 	resource := &Resource{
 		Key:         "article",
-		Name:        "文章",
-		Description: "新聞文章主體",
+		Name:        "Article",
+		Description: "News article entity",
 	}
 
 	err := storage.CreateResource(resource)
@@ -165,7 +165,7 @@ func TestGormStorage_GetAction(t *testing.T) {
 	}
 
 	actions := []Action{
-		{Key: "read", Name: "閱讀", Description: "閱讀文章內容"},
+		{Key: "read", Name: "Read", Description: "Read article content"},
 	}
 
 	err = storage.CreateActions(resource.ID, actions)
@@ -181,8 +181,8 @@ func TestGormStorage_GetAction(t *testing.T) {
 	if action.Key != "read" {
 		t.Errorf("expected key 'read', got '%s'", action.Key)
 	}
-	if action.Name != "閱讀" {
-		t.Errorf("expected name '閱讀', got '%s'", action.Name)
+	if action.Name != "Read" {
+		t.Errorf("expected name 'Read', got '%s'", action.Name)
 	}
 }
 
@@ -191,8 +191,8 @@ func TestGormStorage_CreateAndGetRole(t *testing.T) {
 
 	role := &Role{
 		Key:         "editor",
-		Name:        "編輯者",
-		Description: "可以編輯和發布文章",
+		Name:        "Editor",
+		Description: "Can edit and publish articles",
 		Permissions: []string{"article.read", "article.create", "article.update"},
 	}
 
@@ -213,8 +213,8 @@ func TestGormStorage_CreateAndGetRole(t *testing.T) {
 	if retrieved.Key != "editor" {
 		t.Errorf("expected key 'editor', got '%s'", retrieved.Key)
 	}
-	if retrieved.Name != "編輯者" {
-		t.Errorf("expected name '編輯者', got '%s'", retrieved.Name)
+	if retrieved.Name != "Editor" {
+		t.Errorf("expected name 'Editor', got '%s'", retrieved.Name)
 	}
 	if len(retrieved.Permissions) != 3 {
 		t.Errorf("expected 3 permissions, got %d", len(retrieved.Permissions))
@@ -226,8 +226,8 @@ func TestGormStorage_UpdateRole(t *testing.T) {
 
 	role := &Role{
 		Key:         "editor",
-		Name:        "編輯者",
-		Description: "可以編輯和發布文章",
+		Name:        "Editor",
+		Description: "Can edit and publish articles",
 		Permissions: []string{"article.read", "article.create"},
 	}
 
@@ -282,8 +282,8 @@ func TestGormStorage_DeleteResource(t *testing.T) {
 
 	resource := &Resource{
 		Key:         "article",
-		Name:        "文章",
-		Description: "新聞文章主體",
+		Name:        "Article",
+		Description: "News article entity",
 	}
 
 	err := storage.CreateResource(resource)
@@ -307,8 +307,8 @@ func TestGormStorage_DeleteRole(t *testing.T) {
 
 	role := &Role{
 		Key:         "editor",
-		Name:        "編輯者",
-		Description: "可以編輯和發布文章",
+		Name:        "Editor",
+		Description: "Can edit and publish articles",
 	}
 
 	err := storage.CreateRole(role)

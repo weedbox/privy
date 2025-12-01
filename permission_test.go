@@ -125,8 +125,8 @@ func TestManager_CheckRolesPermission(t *testing.T) {
 
 	// Create roles
 	_, err := m.CreateRole("editor", RoleConfig{
-		Name:        "編輯者",
-		Description: "可以編輯和發布文章",
+		Name:        "Editor",
+		Description: "Can edit and publish articles",
 		Permissions: []string{"article.read", "article.create", "article.update"},
 	})
 	if err != nil {
@@ -134,8 +134,8 @@ func TestManager_CheckRolesPermission(t *testing.T) {
 	}
 
 	_, err = m.CreateRole("viewer", RoleConfig{
-		Name:        "瀏覽者",
-		Description: "只能瀏覽文章",
+		Name:        "Viewer",
+		Description: "Can only view articles",
 		Permissions: []string{"article.read"},
 	})
 	if err != nil {

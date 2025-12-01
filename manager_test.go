@@ -24,12 +24,12 @@ func TestManager_CreateResource(t *testing.T) {
 
 	r, err := m.CreateResource(ResourceConfig{
 		Key:         "article",
-		Name:        "文章",
-		Description: "新聞文章主體",
+		Name:        "Article",
+		Description: "News article entity",
 		Actions: []Action{
-			{Key: "read", Name: "閱讀", Description: "閱讀文章內容"},
-			{Key: "create", Name: "新增", Description: "建立新文章"},
-			{Key: "update", Name: "更新", Description: "編輯既有文章"},
+			{Key: "read", Name: "Read", Description: "Read article content"},
+			{Key: "create", Name: "Create", Description: "Create new article"},
+			{Key: "update", Name: "Update", Description: "Edit existing article"},
 		},
 	})
 
@@ -51,20 +51,20 @@ func TestManager_CreateResourceWithSubResources(t *testing.T) {
 
 	r, err := m.CreateResource(ResourceConfig{
 		Key:         "article",
-		Name:        "文章",
-		Description: "新聞文章主體",
+		Name:        "Article",
+		Description: "News article entity",
 		Actions: []Action{
-			DefineAction("read", "閱讀", "閱讀文章內容"),
-			DefineAction("create", "新增", "建立新文章"),
+			DefineAction("read", "Read", "Read article content"),
+			DefineAction("create", "Create", "Create new article"),
 		},
 		SubResources: []Resource{
 			{
 				Key:         "comment",
-				Name:        "留言",
-				Description: "文章底下的留言",
+				Name:        "Comment",
+				Description: "Article comments",
 				Actions: []Action{
-					DefineAction("read", "閱讀留言", "讀取留言內容"),
-					DefineAction("create", "新增留言", "新增一則留言"),
+					DefineAction("read", "Read Comment", "Read comment content"),
+					DefineAction("create", "Create Comment", "Create a new comment"),
 				},
 			},
 		},
@@ -88,10 +88,10 @@ func TestManager_AddActions(t *testing.T) {
 
 	_, err := m.CreateResource(ResourceConfig{
 		Key:         "article",
-		Name:        "文章",
-		Description: "新聞文章主體",
+		Name:        "Article",
+		Description: "News article entity",
 		Actions: []Action{
-			DefineAction("read", "閱讀", "閱讀文章內容"),
+			DefineAction("read", "Read", "Read article content"),
 		},
 	})
 
@@ -100,8 +100,8 @@ func TestManager_AddActions(t *testing.T) {
 	}
 
 	err = m.AddActions("article", []Action{
-		DefineAction("share", "分享", "分享文章給其他人"),
-		DefineAction("like", "按讚", "對文章按讚"),
+		DefineAction("share", "Share", "Share article with others"),
+		DefineAction("like", "Like", "Like an article"),
 	})
 
 	if err != nil {
@@ -123,8 +123,8 @@ func TestManager_CreateResources(t *testing.T) {
 
 	_, err := m.CreateResource(ResourceConfig{
 		Key:         "article",
-		Name:        "文章",
-		Description: "新聞文章主體",
+		Name:        "Article",
+		Description: "News article entity",
 	})
 
 	if err != nil {
@@ -134,10 +134,10 @@ func TestManager_CreateResources(t *testing.T) {
 	err = m.CreateResources("article", []Resource{
 		{
 			Key:         "comment",
-			Name:        "留言",
-			Description: "文章底下的留言",
+			Name:        "Comment",
+			Description: "Article comments",
 			Actions: []Action{
-				DefineAction("edit", "編輯留言", "編輯既有留言"),
+				DefineAction("edit", "Edit Comment", "Edit existing comment"),
 			},
 		},
 	})
@@ -161,13 +161,13 @@ func TestManager_GetResourceByPath(t *testing.T) {
 
 	_, err := m.CreateResource(ResourceConfig{
 		Key:         "article",
-		Name:        "文章",
-		Description: "新聞文章主體",
+		Name:        "Article",
+		Description: "News article entity",
 		SubResources: []Resource{
 			{
 				Key:         "comment",
-				Name:        "留言",
-				Description: "文章底下的留言",
+				Name:        "Comment",
+				Description: "Article comments",
 			},
 		},
 	})
@@ -190,8 +190,8 @@ func TestManager_CreateRole(t *testing.T) {
 	m := setupTestManager(t)
 
 	role, err := m.CreateRole("editor", RoleConfig{
-		Name:        "編輯者",
-		Description: "可以編輯和發布文章",
+		Name:        "Editor",
+		Description: "Can edit and publish articles",
 		Permissions: []string{
 			"article.read",
 			"article.create",
@@ -217,8 +217,8 @@ func TestManager_AssignPermissions(t *testing.T) {
 	m := setupTestManager(t)
 
 	_, err := m.CreateRole("editor", RoleConfig{
-		Name:        "編輯者",
-		Description: "可以編輯和發布文章",
+		Name:        "Editor",
+		Description: "Can edit and publish articles",
 		Permissions: []string{
 			"article.read",
 			"article.create",
@@ -252,8 +252,8 @@ func TestManager_RemovePermissions(t *testing.T) {
 	m := setupTestManager(t)
 
 	_, err := m.CreateRole("editor", RoleConfig{
-		Name:        "編輯者",
-		Description: "可以編輯和發布文章",
+		Name:        "Editor",
+		Description: "Can edit and publish articles",
 		Permissions: []string{
 			"article.read",
 			"article.create",
@@ -288,8 +288,8 @@ func TestManager_CheckRolePermission(t *testing.T) {
 	m := setupTestManager(t)
 
 	_, err := m.CreateRole("editor", RoleConfig{
-		Name:        "編輯者",
-		Description: "可以編輯和發布文章",
+		Name:        "Editor",
+		Description: "Can edit and publish articles",
 		Permissions: []string{
 			"article.read",
 			"article.create",
@@ -334,8 +334,8 @@ func TestManager_ListResources(t *testing.T) {
 
 	_, err := m.CreateResource(ResourceConfig{
 		Key:         "article",
-		Name:        "文章",
-		Description: "新聞文章主體",
+		Name:        "Article",
+		Description: "News article entity",
 	})
 
 	if err != nil {
@@ -344,8 +344,8 @@ func TestManager_ListResources(t *testing.T) {
 
 	_, err = m.CreateResource(ResourceConfig{
 		Key:         "user",
-		Name:        "用戶",
-		Description: "系統用戶",
+		Name:        "User",
+		Description: "System user",
 	})
 
 	if err != nil {
@@ -366,8 +366,8 @@ func TestManager_ListRoles(t *testing.T) {
 	m := setupTestManager(t)
 
 	_, err := m.CreateRole("editor", RoleConfig{
-		Name:        "編輯者",
-		Description: "可以編輯和發布文章",
+		Name:        "Editor",
+		Description: "Can edit and publish articles",
 	})
 
 	if err != nil {
@@ -375,8 +375,8 @@ func TestManager_ListRoles(t *testing.T) {
 	}
 
 	_, err = m.CreateRole("viewer", RoleConfig{
-		Name:        "瀏覽者",
-		Description: "只能瀏覽文章",
+		Name:        "Viewer",
+		Description: "Can only view articles",
 	})
 
 	if err != nil {

@@ -45,24 +45,24 @@ m := privy.CreateManager(
 ```go
 r, err := m.CreateResource(privy.ResourceConfig{
     Key:         "article",
-    Name:        "文章",
-    Description: "新聞文章主體",
+    Name:        "Article",
+    Description: "News article entity",
     Actions: []privy.Action{
-        privy.DefineAction("read", "閱讀", "閱讀文章內容"),
-        privy.DefineAction("create", "新增", "建立新文章"),
-        privy.DefineAction("update", "更新", "編輯既有文章"),
-        privy.DefineAction("delete", "刪除", "刪除文章"),
-        privy.DefineAction("publish", "發布", "將文章公開"),
+        privy.DefineAction("read", "Read", "Read article content"),
+        privy.DefineAction("create", "Create", "Create new article"),
+        privy.DefineAction("update", "Update", "Edit existing article"),
+        privy.DefineAction("delete", "Delete", "Delete article"),
+        privy.DefineAction("publish", "Publish", "Publish article"),
     },
     SubResources: []privy.Resource{
         {
             Key:         "comment",
-            Name:        "留言",
-            Description: "文章底下的留言",
+            Name:        "Comment",
+            Description: "Article comments",
             Actions: []privy.Action{
-                privy.DefineAction("read", "閱讀留言", "讀取留言內容"),
-                privy.DefineAction("create", "新增留言", "新增一則留言"),
-                privy.DefineAction("delete", "刪除留言", "刪除留言"),
+                privy.DefineAction("read", "Read Comment", "Read comment content"),
+                privy.DefineAction("create", "Create Comment", "Create a new comment"),
+                privy.DefineAction("delete", "Delete Comment", "Delete comment"),
             },
         },
     },
@@ -74,18 +74,18 @@ r, err := m.CreateResource(privy.ResourceConfig{
 ```go
 // Add actions to existing resource
 err := m.AddActions("article", []privy.Action{
-    privy.DefineAction("share", "分享", "分享文章給其他人"),
-    privy.DefineAction("like", "按讚", "對文章按讚"),
+    privy.DefineAction("share", "Share", "Share article with others"),
+    privy.DefineAction("like", "Like", "Like an article"),
 })
 
 // Add sub-resources to existing resource
 err := m.CreateResources("article", []privy.Resource{
     {
         Key:         "tag",
-        Name:        "標籤",
-        Description: "文章標籤",
+        Name:        "Tag",
+        Description: "Article tags",
         Actions: []privy.Action{
-            privy.DefineAction("assign", "指派標籤", "將標籤指派給文章"),
+            privy.DefineAction("assign", "Assign Tag", "Assign tag to article"),
         },
     },
 })
@@ -96,8 +96,8 @@ err := m.CreateResources("article", []privy.Resource{
 ```go
 // Create a role with initial permissions
 role, err := m.CreateRole("editor", privy.RoleConfig{
-    Name:        "編輯者",
-    Description: "可以編輯和發布文章",
+    Name:        "Editor",
+    Description: "Can edit and publish articles",
     Permissions: []string{
         "article.read",
         "article.create",
