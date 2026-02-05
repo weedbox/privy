@@ -15,6 +15,11 @@ import "strings"
 //   CheckPermission("infrastructure", "infrastructure.vm.stop") // true (hierarchical match)
 //   CheckPermission("user.delete", "user.update")              // false (different permissions)
 func CheckPermission(requiredPermission, givenPermission string) bool {
+	// Wildcard support - "*" grants all permissions
+	if givenPermission == "*" {
+		return true
+	}
+
 	// Exact match
 	if requiredPermission == givenPermission {
 		return true

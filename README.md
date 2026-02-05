@@ -118,11 +118,24 @@ err = m.AssignPermissions("editor", []string{
 err = m.RemovePermissions("editor", []string{
     "article.delete",
 })
+
+// Create admin role with wildcard permission (full access)
+admin, err := m.CreateRole("admin", privy.RoleConfig{
+    Name:        "Admin",
+    Description: "Full access to all resources",
+    Permissions: []string{"*"},
+})
 ```
 
 ### 5. Check Permissions
 
-The permission system supports hierarchical matching:
+The permission system supports hierarchical matching and wildcard:
+
+```go
+// Wildcard - grants all permissions (useful for admin roles)
+privy.CheckPermission("article.read", "*") // true
+privy.CheckPermission("user.delete", "*")  // true
+```
 
 ```go
 // Exact match

@@ -63,6 +63,24 @@ func TestCheckPermission(t *testing.T) {
 			givenPermission:    "user",
 			expected:           false,
 		},
+		{
+			name:               "wildcard grants all permissions",
+			requiredPermission: "article.read",
+			givenPermission:    "*",
+			expected:           true,
+		},
+		{
+			name:               "wildcard grants deep hierarchy permissions",
+			requiredPermission: "infrastructure.vm.compute.start",
+			givenPermission:    "*",
+			expected:           true,
+		},
+		{
+			name:               "wildcard grants single level permissions",
+			requiredPermission: "admin",
+			givenPermission:    "*",
+			expected:           true,
+		},
 	}
 
 	for _, tt := range tests {
